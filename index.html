@@ -2,342 +2,427 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Boa Noite</title>
-<meta name="theme-color" content="#0B1330">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boa Noite - Claudio</title>
 <link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#0a0a2e">
 <style>
-  :root{
-    --bg-deep:#0B1330;
-    --bg-mid:#141B4D;
-    --gold:#F4C572;
-    --lavender:#C9CEEA;
-    --lavender-dim:#8B92C4;
-    --rose:#E8879C;
-    --card-bg:rgba(255,255,255,0.05);
-    --card-border:rgba(244,197,114,0.18);
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #05061a;
+    font-family: 'Georgia', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
   }
-  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-  html,body{height:100%;}
-  body{
-    margin:0;
-    min-height:100vh;
-    background:
-      radial-gradient(ellipse 90% 60% at 20% -10%, rgba(244,197,114,0.10), transparent 60%),
-      radial-gradient(ellipse 70% 50% at 90% 0%, rgba(232,135,156,0.08), transparent 55%),
-      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 55%, #0B1330 100%);
-    font-family:'Inter', -apple-system, sans-serif;
-    color:var(--lavender);
-    overflow-x:hidden;
-    position:relative;
+  .card {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    position: relative;
   }
-  #stars{
-    position:fixed; inset:0; z-index:0; pointer-events:none;
+  canvas { display: block; width: 100%; }
+  .bottom {
+    background: #0d0d2e;
+    padding: 16px;
+    text-align: center;
   }
-  .star{
-    position:absolute; background:#fff; border-radius:50%;
-    animation:twinkle 4s ease-in-out infinite;
-    opacity:0.5;
+  .data-label {
+    color: #a9a3ff;
+    font-size: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
   }
-  @keyframes twinkle{
-    0%,100%{opacity:0.15; transform:scale(0.8);}
-    50%{opacity:0.9; transform:scale(1.15);}
+  .btn-share {
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
-  .wrap{
-    position:relative; z-index:1;
-    max-width:480px; margin:0 auto;
-    padding:44px 20px 40px;
-    min-height:100vh;
-    display:flex; flex-direction:column;
+  .btn-new {
+    background: #24245a;
+    color: #a9a3ff;
+    border: 1px solid #3a3a8a;
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-size: 13px;
+    cursor: pointer;
+    width: 100%;
   }
-  header{
-    text-align:center;
-    margin-bottom:34px;
-  }
-  .moon{
-    width:56px; height:56px; margin:0 auto 14px;
-    position:relative;
-  }
-  .moon svg{ width:100%; height:100%; filter:drop-shadow(0 0 18px rgba(244,197,114,0.45)); }
-  h1{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:2.3rem;
-    margin:0 0 6px;
-    letter-spacing:0.01em;
-    background:linear-gradient(180deg, #FDEBC8, var(--gold));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  .subtitle{
-    font-size:0.92rem;
-    color:var(--lavender-dim);
-    margin:0;
-    letter-spacing:0.02em;
-  }
-  .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-    margin-bottom:22px;
-  }
-  .cat-card{
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:18px;
-    padding:22px 12px 18px;
-    text-align:center;
-    cursor:pointer;
-    transition:transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
-    -webkit-user-select:none; user-select:none;
-    backdrop-filter:blur(6px);
-  }
-  .cat-card:active{ transform:scale(0.96); background:rgba(255,255,255,0.09); }
-  .cat-card:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
-  .cat-icon{ font-size:1.7rem; display:block; margin-bottom:8px; }
-  .cat-label{ font-size:0.88rem; font-weight:500; color:var(--lavender); }
-
-  .cat-card[data-cat="amor"] .cat-label{ color:var(--rose); }
-  .cat-card[data-cat="amor"]{ border-color:rgba(232,135,156,0.22); }
-
-  #panel{
-    display:none;
-    flex:1;
-    flex-direction:column;
-  }
-  #panel.active{ display:flex; }
-  .grid.hidden{ display:none; }
-
-  .back-btn{
-    background:none; border:none; color:var(--lavender-dim);
-    font-family:'Inter', sans-serif; font-size:0.85rem;
-    display:flex; align-items:center; gap:6px;
-    padding:8px 0; margin-bottom:16px; cursor:pointer;
-    align-self:flex-start;
-  }
-  .back-btn:active{ opacity:0.6; }
-
-  .msg-card{
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:20px;
-    padding:28px 22px;
-    flex:1;
-    display:flex;
-    align-items:center;
-    min-height:180px;
-    backdrop-filter:blur(6px);
-  }
-  .msg-text{
-    font-family:'Fraunces', serif;
-    font-size:1.18rem;
-    line-height:1.55;
-    color:#FBF6EA;
-    font-weight:400;
-  }
-  .actions{
-    display:flex; gap:10px; margin-top:18px;
-  }
-  .btn{
-    flex:1;
-    border:none; border-radius:14px;
-    padding:14px 10px;
-    font-family:'Inter', sans-serif; font-size:0.86rem; font-weight:600;
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center; gap:6px;
-    transition:transform 0.12s ease, opacity 0.2s ease;
-  }
-  .btn:active{ transform:scale(0.96); }
-  .btn-primary{
-    background:linear-gradient(135deg, var(--gold), #E8A83F);
-    color:#221505;
-  }
-  .btn-secondary{
-    background:rgba(255,255,255,0.08);
-    color:var(--lavender);
-    border:1px solid var(--card-border);
-  }
-  .copied-toast{
-    position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px);
-    background:#1c2456; color:var(--gold);
-    padding:10px 20px; border-radius:30px;
-    font-size:0.85rem; font-weight:500;
-    opacity:0; transition:opacity 0.25s ease, transform 0.25s ease;
-    pointer-events:none; z-index:20;
-    border:1px solid rgba(244,197,114,0.3);
-  }
-  .copied-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
-  footer{
-    text-align:center;
-    margin-top:auto;
-    padding-top:30px;
-    font-size:0.72rem;
-    color:rgba(139,146,196,0.5);
-    letter-spacing:0.03em;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .star{ animation:none; opacity:0.4; }
+  .author {
+    color: #4a4a8a;
+    font-size: 11px;
+    margin-top: 10px;
   }
 </style>
 </head>
 <body>
 
-<div id="stars"></div>
-
-<div class="wrap">
-  <header>
-    <div class="moon">
-      <svg viewBox="0 0 100 100" fill="none">
-        <path d="M62 8C40 12 26 32 30 55C34 79 56 95 78 90C60 88 46 72 44 52C42 34 50 18 62 8Z" fill="#F4C572"/>
-      </svg>
-    </div>
-    <h1>Boa Noite</h1>
-    <p class="subtitle">escolha pra quem é a mensagem de hoje</p>
-  </header>
-
-  <div class="grid" id="grid">
-    <div class="cat-card" data-cat="claudio" tabindex="0" role="button">
-      <span class="cat-icon">🌙</span>
-      <span class="cat-label">Claudio</span>
-    </div>
-    <div class="cat-card" data-cat="irmao" tabindex="0" role="button">
-      <span class="cat-icon">🙏</span>
-      <span class="cat-label">Irmão Claudio</span>
-    </div>
-    <div class="cat-card" data-cat="papai" tabindex="0" role="button">
-      <span class="cat-icon">👶</span>
-      <span class="cat-label">Papai</span>
-    </div>
-    <div class="cat-card" data-cat="amor" tabindex="0" role="button">
-      <span class="cat-icon">💕</span>
-      <span class="cat-label">Seu amor</span>
-    </div>
+<div class="card">
+  <canvas id="canvas" width="420" height="420"></canvas>
+  <div class="bottom">
+    <div class="data-label" id="data-label"></div>
+    <button class="btn-share" onclick="compartilhar()">
+      📲 Compartilhar no WhatsApp
+    </button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+    <button id="btn-claudio" onclick="setAssinatura('claudio')" style="padding:9px 4px;border-radius:50px;border:1.5px solid #3a3a8a;background:#24245a;color:#a9a3ff;font-size:12px;cursor:pointer">👤 Claudio</button>
+    <button id="btn-irmao" onclick="setAssinatura('irmao')" style="padding:9px 4px;border-radius:50px;border:1.5px solid #6f6ff7;background:#6f6ff7;color:#fff;font-size:12px;cursor:pointer;font-weight:bold">🙏 Irmão Claudio</button>
+    <button id="btn-kimberly" onclick="setAssinatura('kimberly')" style="padding:9px 4px;border-radius:50px;border:1.5px solid #3a3a8a;background:#24245a;color:#a9a3ff;font-size:12px;cursor:pointer">👨‍👧 Kimberly</button>
+    <button id="btn-priscila" onclick="setAssinatura('priscila')" style="padding:9px 4px;border-radius:50px;border:1.5px solid #3a3a8a;background:#24245a;color:#a9a3ff;font-size:12px;cursor:pointer">❤️ Priscila</button>
   </div>
-
-  <div id="panel">
-    <button class="back-btn" id="backBtn">← voltar</button>
-    <div class="msg-card">
-      <p class="msg-text" id="msgText"></p>
-    </div>
-    <div class="actions">
-      <button class="btn btn-secondary" id="newMsgBtn">🔄 Nova</button>
-      <button class="btn btn-secondary" id="copyBtn">📋 Copiar</button>
-      <button class="btn btn-primary" id="shareBtn">Whats</button>
-    </div>
+  <button class="btn-new" onclick="proximaMensagem()">
+      🔄 Nova mensagem
+    </button>
+    <div class="author">🌙 Boa Noite por Irmão Claudio</div>
   </div>
-
-  <footer>© CLAUDIO</footer>
 </div>
 
-<div class="copied-toast" id="toast">Copiado!</div>
-
 <script>
-const MESSAGES = {"claudio": ["Dia difícil, mas você chegou até aqui. Amanhã a gente segue com mais força. Boa noite e bons sonhos! 🌙", "Dia difícil, mas você chegou até aqui. Que o cansaço vá embora e o sono venha leve. Descansa direito. ✨", "O silêncio da noite chegou. Que o cansaço vá embora e o sono venha leve. Durma bem! 🌙", "Dia difícil, mas você chegou até aqui. Amanhã a gente segue com mais força. Até amanhã! 🌙", "Dia difícil, mas você chegou até aqui. Que a noite traga paz pro corpo e pra cabeça. Descansa direito. ✨", "O dia foi corrido, mas valeu a pena. Solta os pensamentos pesados e descansa a mente. Boa noite e bons sonhos! 🌙", "Fechando mais essa página do dia. Que a noite traga paz pro corpo e pra cabeça. Até amanhã! 🌙", "Dia difícil, mas você chegou até aqui. Respira fundo e relaxa, o dia já foi. Boa noite e bons sonhos! 🌙", "Dia difícil, mas você chegou até aqui. Deixa as preocupações de lado por hoje. Um sono tranquilo pra você. 😴", "Amanhã é um novo começo. Nem tudo se resolve hoje, e tá tudo bem. Recarrega as energias. 😴", "Mais um capítulo encerrado hoje. Nem tudo se resolve hoje, e tá tudo bem. Recarrega as energias. 😴", "O silêncio da noite chegou. Solta os pensamentos pesados e descansa a mente. Um sono tranquilo pra você. 😴", "Hora de desacelerar. Solta os pensamentos pesados e descansa a mente. Até amanhã! 🌙", "Descansar também é produtivo. Solta os pensamentos pesados e descansa a mente. Até amanhã! 🌙", "Descansar também é produtivo. Que o cansaço vá embora e o sono venha leve. Boa noite e bons sonhos! 🌙", "Fechando mais essa página do dia. Que o cansaço vá embora e o sono venha leve. Um sono tranquilo pra você. 😴", "Mais um dia se encerrando. Você fez o que precisava, agora é hora de recarregar. Até amanhã! 🌙", "Hora de desacelerar. Nem tudo se resolve hoje, e tá tudo bem. Um sono tranquilo pra você. 😴", "Mais um capítulo encerrado hoje. Que o cansaço vá embora e o sono venha leve. Recarrega as energias. 😴", "Descansar também é produtivo. Que o cansaço vá embora e o sono venha leve. Recarrega as energias. 😴", "O silêncio da noite chegou. Que o cansaço vá embora e o sono venha leve. Um sono tranquilo pra você. 😴", "Boa noite! Amanhã a gente segue com mais força. Durma bem! 🌙", "Descansar também é produtivo. Respira fundo e relaxa, o dia já foi. Descansa direito. ✨", "Boa noite! Nem tudo se resolve hoje, e tá tudo bem. Recarrega as energias. 😴", "Dia difícil, mas você chegou até aqui. Respira fundo e relaxa, o dia já foi. Descansa direito. ✨", "Dia difícil, mas você chegou até aqui. Que o cansaço vá embora e o sono venha leve. Boa noite e bons sonhos! 🌙", "Descansar também é produtivo. Cada dia é um degrau, e você está subindo. Um sono tranquilo pra você. 😴", "Fechando mais essa página do dia. Amanhã a gente segue com mais força. Um sono tranquilo pra você. 😴", "Boa noite! Cada dia é um degrau, e você está subindo. Descansa direito. ✨", "Mais um capítulo encerrado hoje. Que a noite traga paz pro corpo e pra cabeça. Recarrega as energias. 😴", "Amanhã é um novo começo. Que a noite traga paz pro corpo e pra cabeça. Durma bem! 🌙", "Hora de desacelerar. Guarda as energias pra amanhã continuar firme. Até amanhã! 🌙", "Descansar também é produtivo. Deixa as preocupações de lado por hoje. Durma bem! 🌙", "Mais um capítulo encerrado hoje. Nem tudo se resolve hoje, e tá tudo bem. Um sono tranquilo pra você. 😴", "Mais um capítulo encerrado hoje. Que o cansaço vá embora e o sono venha leve. Durma bem! 🌙", "Fechando mais essa página do dia. Deixa as preocupações de lado por hoje. Um sono tranquilo pra você. 😴", "Hora de desacelerar. Você fez o que precisava, agora é hora de recarregar. Até amanhã! 🌙", "Amanhã é um novo começo. Solta os pensamentos pesados e descansa a mente. Recarrega as energias. 😴", "Descansar também é produtivo. Nem tudo se resolve hoje, e tá tudo bem. Até amanhã! 🌙", "O silêncio da noite chegou. Nem tudo se resolve hoje, e tá tudo bem. Até amanhã! 🌙"], "irmao": ["Mais um dia de vitória concedido por Deus. Durma em paz, pois Ele nunca dorme nem cochila. Sono tranquilo na graça dEle. 🙏🌙", "A noite chegou e com ela a paz do Senhor. Descanse sabendo que Deus está no controle de tudo. Até amanhã, com a bênção de Deus! 🙏🌙", "Deus foi fiel mais uma vez hoje. Descanse sabendo que Deus está no controle de tudo. Que Deus vele seus sonhos. 🙏", "Mais um dia de vitória concedido por Deus. A misericórdia dEle se renova a cada manhã. Boa noite, irmão, Deus te abençoe! 🙏", "Antes de dormir, gratidão a Deus por hoje. Ele renova as forças de quem nEle espera. Até amanhã, com a bênção de Deus! 🙏🌙", "Que a paz de Cristo cubra essa noite. Que a Palavra dEle traga sossego ao seu coração. Sono tranquilo na graça dEle. 🙏🌙", "Que a paz de Cristo cubra essa noite. Que a Palavra dEle traga sossego ao seu coração. Descanse na paz do Senhor. 🙏", "Boa noite, irmão! Solta nas mãos de Deus o que não pôde resolver hoje. Que Deus vele seus sonhos. 🙏", "Que a paz de Cristo cubra essa noite. Durma em paz, pois Ele nunca dorme nem cochila. Boa noite, irmão, Deus te abençoe! 🙏", "Boa noite, irmão! Que os anjos do Senhor guardem seu descanso. Boa noite e que Deus abençoe seu sono! 🙏🌙", "Mais um dia de vitória concedido por Deus. O Senhor é o pastor que cuida do seu descanso. Até amanhã, com a bênção de Deus! 🙏🌙", "Boa noite, irmão! Descanse sabendo que Deus está no controle de tudo. Descanse na paz do Senhor. 🙏", "Que a paz de Cristo cubra essa noite. Ele renova as forças de quem nEle espera. Que Deus vele seus sonhos. 🙏", "Que a paz de Cristo cubra essa noite. Ele renova as forças de quem nEle espera. Boa noite, irmão, Deus te abençoe! 🙏", "A noite chegou e com ela a paz do Senhor. Que os anjos do Senhor guardem seu descanso. Boa noite, irmão, Deus te abençoe! 🙏", "Antes de dormir, gratidão a Deus por hoje. A misericórdia dEle se renova a cada manhã. Boa noite e que Deus abençoe seu sono! 🙏🌙", "Mais um dia que Deus nos permitiu viver. Solta nas mãos de Deus o que não pôde resolver hoje. Boa noite, irmão, Deus te abençoe! 🙏", "Hora de descansar nos braços do Pai. O Senhor é o pastor que cuida do seu descanso. Boa noite e que Deus abençoe seu sono! 🙏🌙", "Mais um dia que Deus nos permitiu viver. O Senhor vela pelo seu sono e pela sua casa. Boa noite e que Deus abençoe seu sono! 🙏🌙", "Mais um dia que Deus nos permitiu viver. Solta nas mãos de Deus o que não pôde resolver hoje. Boa noite e que Deus abençoe seu sono! 🙏🌙", "O Senhor cuidou de cada passo hoje. O Senhor é o pastor que cuida do seu descanso. Boa noite, irmão, Deus te abençoe! 🙏", "Encerrando o dia com o coração em oração. Ele renova as forças de quem nEle espera. Sono tranquilo na graça dEle. 🙏🌙", "Antes de dormir, gratidão a Deus por hoje. Descanse sabendo que Deus está no controle de tudo. Até amanhã, com a bênção de Deus! 🙏🌙", "Que a paz de Cristo cubra essa noite. Durma em paz, pois Ele nunca dorme nem cochila. Até amanhã, com a bênção de Deus! 🙏🌙", "O Senhor cuidou de cada passo hoje. O Senhor é o pastor que cuida do seu descanso. Sono tranquilo na graça dEle. 🙏🌙", "Deus foi fiel mais uma vez hoje. Que a Palavra dEle traga sossego ao seu coração. Boa noite e que Deus abençoe seu sono! 🙏🌙", "Deus foi fiel mais uma vez hoje. O Senhor é o pastor que cuida do seu descanso. Boa noite, irmão, Deus te abençoe! 🙏", "Encerrando o dia com o coração em oração. Entrega suas preocupações a Ele e descansa em paz. Boa noite e que Deus abençoe seu sono! 🙏🌙", "Boa noite, irmão! Durma em paz, pois Ele nunca dorme nem cochila. Que Deus vele seus sonhos. 🙏", "Antes de dormir, gratidão a Deus por hoje. A misericórdia dEle se renova a cada manhã. Boa noite, irmão, Deus te abençoe! 🙏", "Mais um dia de vitória concedido por Deus. Entrega suas preocupações a Ele e descansa em paz. Até amanhã, com a bênção de Deus! 🙏🌙", "Hora de descansar nos braços do Pai. A misericórdia dEle se renova a cada manhã. Sono tranquilo na graça dEle. 🙏🌙", "Deus foi fiel mais uma vez hoje. Ele renova as forças de quem nEle espera. Que Deus vele seus sonhos. 🙏", "O Senhor cuidou de cada passo hoje. O Senhor vela pelo seu sono e pela sua casa. Até amanhã, com a bênção de Deus! 🙏🌙", "Encerrando o dia com o coração em oração. Ele renova as forças de quem nEle espera. Boa noite, irmão, Deus te abençoe! 🙏", "A noite chegou e com ela a paz do Senhor. Que os anjos do Senhor guardem seu descanso. Até amanhã, com a bênção de Deus! 🙏🌙", "O Senhor cuidou de cada passo hoje. Ele renova as forças de quem nEle espera. Boa noite, irmão, Deus te abençoe! 🙏", "Hora de descansar nos braços do Pai. Durma em paz, pois Ele nunca dorme nem cochila. Até amanhã, com a bênção de Deus! 🙏🌙", "Boa noite, irmão! O Senhor vela pelo seu sono e pela sua casa. Sono tranquilo na graça dEle. 🙏🌙", "Mais um dia que Deus nos permitiu viver. O Senhor é o pastor que cuida do seu descanso. Que Deus vele seus sonhos. 🙏"], "papai": ["Mais uma noite pra sonhar bonito. Sonha com coisas boas, com festa, com brincadeira. Descansa, meu bem! ❤️", "Você é a coisa mais linda que Deus me deu, e hoje não foi diferente. Sonha com coisas boas, com festa, com brincadeira. Papai te ama, boa noite! ❤️", "Mais uma noite pra sonhar bonito. Fecha os olhinhos e descansa, amanhã tem mais amor esperando. Durma bem, meu amor! ❤️😴", "Antes de fechar os olhinhos, saiba: papai te ama. Você faz meus dias mais leves, filha. Papai te ama, boa noite! ❤️", "Boa noite, minha princesa! Durma com o coração levinho, papai está de olho em você. Boa noite, com todo amor do papai! ❤️🌙", "Você é a coisa mais linda que Deus me deu, e hoje não foi diferente. Você é tão especial, nunca esqueça disso. Boa noite, com todo amor do papai! ❤️🌙", "Mais uma noite pra sonhar bonito. Sonha com coisas boas, com festa, com brincadeira. Durma bem, meu amor! ❤️😴", "O dia foi longo, mas agora é hora do soninho. Papai vai estar aqui quando você acordar, sempre. Boa noite, com todo amor do papai! ❤️🌙", "Hoje você me encheu de orgulho, sabia? Cada dia com você é um presente pra mim. Até amanhã, princesa! ❤️🌙", "Papai tá aqui, pode dormir tranquila. Você é tão especial, nunca esqueça disso. Durma bem, meu amor! ❤️😴", "Hoje você me encheu de orgulho, sabia? Sonha com coisas boas, com festa, com brincadeira. Descansa, meu bem! ❤️", "Papai sempre vai estar aqui, dormindo ou acordado. Sonha com coisas boas, com festa, com brincadeira. Até amanhã, princesa! ❤️🌙", "Mais uma noite pra sonhar bonito. Fecha os olhinhos e descansa, amanhã tem mais amor esperando. Boa noite, com todo amor do papai! ❤️🌙", "Papai tá aqui, pode dormir tranquila. Sonha com coisas boas, com festa, com brincadeira. Durma bem, meu amor! ❤️😴", "Mais uma noite pra sonhar bonito. Fecha os olhinhos e descansa, amanhã tem mais amor esperando. Papai te ama, boa noite! ❤️", "Boa noite, minha princesa! Que os anjos cuidem do seu sono essa noite. Papai te ama, boa noite! ❤️", "Papai sempre vai estar aqui, dormindo ou acordado. Durma com o coração levinho, papai está de olho em você. Descansa, meu bem! ❤️", "Papai tá aqui, pode dormir tranquila. Que os anjos cuidem do seu sono essa noite. Sonhos bons pra você! ❤️🌙", "Boa noite, minha princesa! Você faz meus dias mais leves, filha. Boa noite, com todo amor do papai! ❤️🌙", "Antes de fechar os olhinhos, saiba: papai te ama. Sonha com coisas boas, com festa, com brincadeira. Durma bem, meu amor! ❤️😴", "Papai tá aqui, pode dormir tranquila. Sonha com coisas boas, com festa, com brincadeira. Boa noite, com todo amor do papai! ❤️🌙", "Você é a coisa mais linda que Deus me deu, e hoje não foi diferente. Papai vai estar aqui quando você acordar, sempre. Até amanhã, princesa! ❤️🌙", "Mais uma noite pra sonhar bonito. Durma com o coração levinho, papai está de olho em você. Boa noite, com todo amor do papai! ❤️🌙", "O dia foi longo, mas agora é hora do soninho. Amanhã tem mais aventura te esperando. Papai te ama, boa noite! ❤️", "Papai sempre vai estar aqui, dormindo ou acordado. Você faz meus dias mais leves, filha. Descansa, meu bem! ❤️", "O dia foi longo, mas agora é hora do soninho. Cada dia com você é um presente pra mim. Até amanhã, princesa! ❤️🌙", "Boa noite, minha princesa! Amanhã tem mais aventura te esperando. Descansa, meu bem! ❤️", "Chegou a hora de dormir, filha. Cada dia com você é um presente pra mim. Durma bem, meu amor! ❤️😴", "Mais uma noite pra sonhar bonito. Sonha com coisas boas, com festa, com brincadeira. Até amanhã, princesa! ❤️🌙", "Antes de fechar os olhinhos, saiba: papai te ama. Não esquece: você é amada mais do que imagina. Papai te ama, boa noite! ❤️", "Mais um dia de você crescendo, e eu vendo tudo. Amanhã tem mais aventura te esperando. Boa noite, com todo amor do papai! ❤️🌙", "Papai sempre vai estar aqui, dormindo ou acordado. Não esquece: você é amada mais do que imagina. Boa noite, com todo amor do papai! ❤️🌙", "Você é a coisa mais linda que Deus me deu, e hoje não foi diferente. Amanhã tem mais aventura te esperando. Sonhos bons pra você! ❤️🌙", "Papai tá aqui, pode dormir tranquila. Papai vai estar aqui quando você acordar, sempre. Sonhos bons pra você! ❤️🌙", "Papai tá aqui, pode dormir tranquila. Que os anjos cuidem do seu sono essa noite. Descansa, meu bem! ❤️", "Boa noite, minha princesa! Durma com o coração levinho, papai está de olho em você. Sonhos bons pra você! ❤️🌙", "Chegou a hora de dormir, filha. Durma com o coração levinho, papai está de olho em você. Papai te ama, boa noite! ❤️", "Hoje você me encheu de orgulho, sabia? Você é tão especial, nunca esqueça disso. Boa noite, com todo amor do papai! ❤️🌙", "Hoje você me encheu de orgulho, sabia? Você é tão especial, nunca esqueça disso. Até amanhã, princesa! ❤️🌙", "O dia foi longo, mas agora é hora do soninho. Que os anjos cuidem do seu sono essa noite. Até amanhã, princesa! ❤️🌙"], "amor": ["Fechando mais um dia com você no pensamento. Solta as preocupações, eu tô aqui com você. Descansa, eu te amo! ❤️🌙", "Mais um dia ao seu lado chegando ao fim. Nossa caminhada juntos é o que me dá força todo dia. Descansa, eu te amo! ❤️🌙", "Só de saber que vou acordar do seu lado já é motivo pra sorrir. Meu amor por você não cabe em palavras, mas cabe num boa noite bem sentido. Durma bem, meu amor! ❤️😴", "Antes de dormir, só queria te dizer que te amo. Que seu sono seja tranquilo e cheio de paz. Descansa, eu te amo! ❤️🌙", "Só de saber que vou acordar do seu lado já é motivo pra sorrir. Descansa bem, amanhã sigo ao seu lado como sempre. Durma bem, meu amor! ❤️😴", "O dia foi corrido, mas pensar em você deixou tudo melhor. Você merece descansar depois de um dia tão dedicado. Boa noite, meu bem! ❤️", "Hoje, como todo dia, você fez diferença na minha vida. Obrigado por ser meu companheiro(a) de todos os momentos. Boa noite, meu bem! ❤️", "Chegou a hora de descansar, meu bem. Solta as preocupações, eu tô aqui com você. Boa noite, te amo! ❤️🌙", "Hoje, como todo dia, você fez diferença na minha vida. Descansa bem, amanhã sigo ao seu lado como sempre. Até amanhã, amor da minha vida! ❤️", "Chegou a hora de descansar, meu bem. Que seu sono seja tranquilo e cheio de paz. Descansa, eu te amo! ❤️🌙", "Mais um dia ao seu lado chegando ao fim. Você merece descansar depois de um dia tão dedicado. Boa noite, te amo! ❤️🌙", "Fechando mais um dia com você no pensamento. Durma tranquila, sonhando com dias bons pela frente. Boa noite, meu bem! ❤️", "Boa noite, meu amor. Descansa bem, amanhã sigo ao seu lado como sempre. Descansa, eu te amo! ❤️🌙", "Só de saber que vou acordar do seu lado já é motivo pra sorrir. Obrigado por ser meu companheiro(a) de todos os momentos. Boa noite, te amo! ❤️🌙", "Mais uma noite, e o meu amor por você só cresce. Você é o meu porto seguro, durma sabendo disso. Boa noite, meu bem! ❤️", "Mais um dia ao seu lado chegando ao fim. Você merece descansar depois de um dia tão dedicado. Durma bem, meu amor! ❤️😴", "Mais uma noite, e o meu amor por você só cresce. Que seu sono seja tranquilo e cheio de paz. Descansa, eu te amo! ❤️🌙", "Só de saber que vou acordar do seu lado já é motivo pra sorrir. Obrigado por ser meu companheiro(a) de todos os momentos. Até amanhã, amor da minha vida! ❤️", "Mais uma noite, e o meu amor por você só cresce. Durma tranquila, sonhando com dias bons pela frente. Descansa, eu te amo! ❤️🌙", "Antes de dormir, só queria te dizer que te amo. Solta as preocupações, eu tô aqui com você. Durma bem, meu amor! ❤️😴", "O dia foi corrido, mas pensar em você deixou tudo melhor. Nossa caminhada juntos é o que me dá força todo dia. Boa noite, meu bem! ❤️", "Hoje, como todo dia, você fez diferença na minha vida. Obrigado por ser meu companheiro(a) de todos os momentos. Boa noite, te amo! ❤️🌙", "Chegou a hora de descansar, meu bem. Solta as preocupações, eu tô aqui com você. Sonhos bons, com você no meu pensamento! ❤️🌙", "Antes de dormir, um beijo de boa noite pra você. Solta as preocupações, eu tô aqui com você. Sonhos bons, com você no meu pensamento! ❤️🌙", "Antes de dormir, um beijo de boa noite pra você. Meu amor por você não cabe em palavras, mas cabe num boa noite bem sentido. Até amanhã, amor da minha vida! ❤️", "O dia foi corrido, mas pensar em você deixou tudo melhor. Meu amor por você não cabe em palavras, mas cabe num boa noite bem sentido. Durma bem, meu amor! ❤️😴", "Antes de dormir, só queria te dizer que te amo. Obrigado por ser meu companheiro(a) de todos os momentos. Descansa, eu te amo! ❤️🌙", "Só de saber que vou acordar do seu lado já é motivo pra sorrir. Você é o meu porto seguro, durma sabendo disso. Até amanhã, amor da minha vida! ❤️", "O dia foi corrido, mas pensar em você deixou tudo melhor. Cada dia ao seu lado é motivo de gratidão. Descansa, eu te amo! ❤️🌙", "Boa noite, meu amor. Descansa bem, amanhã sigo ao seu lado como sempre. Até amanhã, amor da minha vida! ❤️", "Antes de dormir, um beijo de boa noite pra você. Você é o meu porto seguro, durma sabendo disso. Sonhos bons, com você no meu pensamento! ❤️🌙", "Mais um dia ao seu lado chegando ao fim. Nossa caminhada juntos é o que me dá força todo dia. Até amanhã, amor da minha vida! ❤️", "Chegou a hora de descansar, meu bem. Cada dia ao seu lado é motivo de gratidão. Até amanhã, amor da minha vida! ❤️", "Hoje, como todo dia, você fez diferença na minha vida. Você merece descansar depois de um dia tão dedicado. Boa noite, te amo! ❤️🌙", "Mais uma noite, e o meu amor por você só cresce. Meu amor por você não cabe em palavras, mas cabe num boa noite bem sentido. Até amanhã, amor da minha vida! ❤️", "Boa noite, meu amor. Solta as preocupações, eu tô aqui com você. Sonhos bons, com você no meu pensamento! ❤️🌙", "Chegou a hora de descansar, meu bem. Durma tranquila, sonhando com dias bons pela frente. Boa noite, te amo! ❤️🌙", "Fechando mais um dia com você no pensamento. Solta as preocupações, eu tô aqui com você. Boa noite, meu bem! ❤️", "Mais um dia ao seu lado chegando ao fim. Você é o meu porto seguro, durma sabendo disso. Até amanhã, amor da minha vida! ❤️", "Antes de dormir, um beijo de boa noite pra você. Você é o meu porto seguro, durma sabendo disso. Durma bem, meu amor! ❤️😴"]};
+const mensagensBiblicas = [
+  { frase: "Deite em paz, pois\nSó o Senhor te faz\nviver em segurança.", sub: "com paz e proteção" },
+  { frase: "Que os anjos do Senhor\nacampem ao redor de\nvocê durante a noite.", sub: "com proteção divina" },
+  { frase: "Entrega os teus cuidados\na Deus, pois Ele\nte sustenta enquanto dormes.", sub: "com descanso em Deus" },
+  { frase: "Boa noite! Que o\nSenhor te dê um\nsono tranquilo e reparador.", sub: "com sono tranquilo" },
+  { frase: "Deus nunca dorme.\nEnquanto você descansa,\nEle cuida de tudo.", sub: "com vigília divina" },
+  { frase: "Que a paz de\nCristo guarde seu\ncoração e mente hoje.", sub: "com a paz que excede" },
+  { frase: "Encerre o dia com\ngratidão, pois a\nmisericórdia de Deus é nova.", sub: "com gratidão renovada" },
+  { frase: "O Senhor é a\nminha luz e salvação,\nde quem terei temor?", sub: "com fé inabalável" },
+  { frase: "Que teus sonhos sejam\nabençoados e teu descanso\nseja na presença de Deus.", sub: "com bênçãos noturnas" },
+  { frase: "Descansa, filho de Deus.\nAmanhã Ele já está\ncuidando de tudo.", sub: "com confiança e fé" },
+  { frase: "Em paz me deito\ne logo adormeço,\nporque só Tu, Senhor, me fazes viver seguro.", sub: "com segurança em Deus" },
+  { frase: "Que essa noite seja\nde restauração para\no corpo e para a alma.", sub: "com restauração" },
+  { frase: "Boa noite! Solte\nas preocupações e\ndescanse nas mãos de Deus.", sub: "com entrega e paz" },
+  { frase: "A fidelidade do Senhor\nse renova a cada\nmanhã, mas sua graça já cobre a noite.", sub: "com graça constante" },
+  { frase: "Que o Senhor te\ndê sonhos bons e\num despertar cheio de esperança.", sub: "com esperança renovada" },
+  { frase: "Boa noite! Que a\nbênção do Senhor\nrepouse sobre sua casa.", sub: "com bênçãos sobre o lar" },
+  { frase: "Descansa em quem\nnunca falha: o teu\nDeus é fiel até o fim.", sub: "com fidelidade eterna" },
+  { frase: "Que os teus dias\nsejam contados com\nsabedoria e as noites com paz.", sub: "com sabedoria e paz" },
+  { frase: "O Senhor guardará\na tua saída e\na tua entrada, hoje e sempre.", sub: "com guarda divina" },
+  { frase: "Boa noite! Feche\nos olhos sabendo\nque Deus está no controle.", sub: "com controle e fé" },
+  { frase: "Que a tua alma\nrepouse tranquila, pois\no Senhor é o teu pastor.", sub: "com o pastor cuidando" },
+  { frase: "Antes de dormir,\nagradeça por mais\num dia de graça vivido.", sub: "com gratidão sincera" },
+  { frase: "Boa noite! Que o\namor de Deus te\nembale como um cobertor quente.", sub: "com amor que aconchega" },
+  { frase: "Lança sobre Ele\ntua ansiedade, porque\nEle tem cuidado de ti.", sub: "com cuidado divino" },
+  { frase: "Que esta noite\nrenove suas forças\npara os planos de amanhã.", sub: "com força renovada" },
+];
 
-const SIGN_KEY = {
-  claudio: 'Claudio',
-  irmao: 'Irmão Claudio',
-  papai: 'Papai',
-  amor: 'Seu amor'
-};
+const mensagensGerais = [
+  { frase: "Que a noite traga\ndescanso pro corpo\ne paz pra mente.", sub: "com descanso merecido" },
+  { frase: "Boa noite! Amanhã\né um novo dia\ncheio de novas chances.", sub: "com esperança renovada" },
+  { frase: "Desligue os pensamentos\npesados e durma\nleve, você merece.", sub: "com leveza no coração" },
+  { frase: "Que seus sonhos\nsejam bons e seu\nsono seja tranquilo.", sub: "com bons sonhos" },
+  { frase: "Hoje foi um dia,\namanhã será outro.\nDescanse e recomece.", sub: "com renovação" },
+  { frase: "Boa noite! Solta\ntudo que pesou hoje\ne durma em paz.", sub: "com leveza e paz" },
+  { frase: "Que a escuridão\nda noite traga\na calma que você precisa.", sub: "com calma e silêncio" },
+  { frase: "Você fez o seu\nmelhor hoje. Agora\né hora de descansar.", sub: "com orgulho do seu esforço" },
+  { frase: "Boa noite! Que\namanhã você acorde\nmais forte e mais feliz.", sub: "com força renovada" },
+  { frase: "Durma bem, sonhe\nalto e acorde\npronto pra conquistar tudo.", sub: "com sonhos grandes" },
+  { frase: "Que essa noite\napague o cansaço\ne acenda a esperança.", sub: "com esperança acesa" },
+  { frase: "Boa noite! Recarregue\nas energias pra\nmais um dia de vitórias.", sub: "com energia renovada" },
+  { frase: "O dia foi longo,\nmas você chegou\naté aqui. Descanse.", sub: "com merecido descanso" },
+  { frase: "Que os problemas\nde hoje fiquem\npra trás e a paz chegue agora.", sub: "com paz de espírito" },
+  { frase: "Boa noite! Amanhã\né uma nova página\npra escrever coisas boas.", sub: "com novos começos" },
+  { frase: "Feche os olhos\ne solte tudo.\nVocê já fez o suficiente hoje.", sub: "com gratidão pelo dia" },
+  { frase: "Que o silêncio\nda noite traga\nrespostas pro seu coração.", sub: "com clareza e paz" },
+  { frase: "Boa noite! Durma\nsabendo que amanhã\ntudo pode ficar melhor.", sub: "com fé no amanhã" },
+  { frase: "Descanse hoje pra\nter forças pra\nsonhar ainda mais alto amanhã.", sub: "com forças renovadas" },
+  { frase: "Que essa noite\nseja tranquila e\nseu sono, profundo e reparador.", sub: "com sono reparador" },
+  { frase: "Boa noite! Gratidão\npor mais um dia\nvivido com tudo que veio junto.", sub: "com gratidão pelo dia" },
+  { frase: "A noite chegou\npra lembrar que\nvocê pode parar e respirar.", sub: "com respiro merecido" },
+  { frase: "Durma em paz,\namanhã os desafios\nesperam, mas você está pronto.", sub: "com preparo e confiança" },
+  { frase: "Boa noite! Que\nas estrelas vigiem\nseu sono essa noite.", sub: "com proteção e paz" },
+  { frase: "Descanse o corpo,\nacalme a mente,\nrenove a alma essa noite.", sub: "com renovação completa" },
+];
 
-// stars background
-(function(){
-  const starsEl = document.getElementById('stars');
-  const n = 50;
-  for(let i=0;i<n;i++){
-    const s = document.createElement('div');
-    s.className='star';
-    const size = Math.random()*2+1;
-    s.style.width = size+'px';
-    s.style.height = size+'px';
-    s.style.left = Math.random()*100+'%';
-    s.style.top = Math.random()*70+'%';
-    s.style.animationDelay = (Math.random()*4)+'s';
-    s.style.animationDuration = (3+Math.random()*3)+'s';
-    starsEl.appendChild(s);
-  }
-})();
+const mensagensKimberly = [
+  { frase: "Boa noite, minha filha!\nQue seus sonhos sejam\ntão lindos quanto você.", sub: "com todo amor de pai" },
+  { frase: "Kimberly, durma tranquila,\nseu pai está sempre\ncuidando de você.", sub: "com cuidado de sempre" },
+  { frase: "Boa noite, princesa!\nDescanse, amanhã tem\nmais um dia pra brilhar.", sub: "com orgulho e carinho" },
+  { frase: "Que você tenha\nsonhos bons, filha,\ne acorde ainda mais feliz.", sub: "com muito amor" },
+  { frase: "Boa noite, Kimberly!\nVocê é a coisa\nmais linda da vida do seu pai.", sub: "com amor sem medida" },
+  { frase: "Durma em paz,\nminha filha, sabendo\nque é muito amada.", sub: "com amor incondicional" },
+  { frase: "Boa noite! Descanse\nhoje pra ter energia\npra sonhar alto amanhã, filha.", sub: "com fé em você" },
+  { frase: "Kimberly, que seu\nsono seja doce e\nseus sonhos, coloridos.", sub: "com carinho de pai" },
+  { frase: "Boa noite, minha filha!\nVocê fez o dia\ndo seu pai mais bonito.", sub: "com gratidão sincera" },
+  { frase: "Que essa noite\ntraga descanso pro\nseu corpo e paz pro coração, filha.", sub: "com paz e cuidado" },
+  { frase: "Boa noite, princesa!\nSeu pai agradece\npor mais um dia com você.", sub: "com gratidão de pai" },
+  { frase: "Kimberly, filha, durma\nsabendo que é o\norgulho e a alegria do seu pai.", sub: "com orgulho verdadeiro" },
+  { frase: "Boa noite! Que os\nanjos cuidem do seu\nsono essa noite, minha filha.", sub: "com proteção e amor" },
+  { frase: "Descanse bem, filha,\namanhã seu pai\nestará na torcida por você de novo.", sub: "com torcida constante" },
+  { frase: "Boa noite, Kimberly!\nVocê ilumina até\nos dias mais cansados do seu pai.", sub: "com luz e carinho" },
+  { frase: "Que seu sono seja\ntranquilo, filha, e\nseu amanhã ainda mais bonito.", sub: "com leveza e amor" },
+  { frase: "Boa noite, minha filha!\nCada dia com você\né motivo de gratidão.", sub: "com gratidão profunda" },
+  { frase: "Kimberly, durma tranquila,\nseu pai está aqui,\nhoje, amanhã e sempre.", sub: "com apoio incondicional" },
+  { frase: "Boa noite, princesa!\nQue seus sonhos sejam\ntão grandes quanto seu coração.", sub: "com fé no seu futuro" },
+  { frase: "Filha, descanse, você\nmerece toda paz\ndepois de um dia tão dedicado.", sub: "com merecido descanso" },
+  { frase: "Boa noite, Kimberly!\nVocê é um presente\nque Deus deu ao seu pai.", sub: "com gratidão eterna" },
+  { frase: "Que essa noite\nrenove suas forças,\nfilha, pro dia lindo que vem aí.", sub: "com força renovada" },
+  { frase: "Boa noite, minha filha!\nDurma sabendo que\nseu pai te ama mais que tudo.", sub: "com amor imenso" },
+  { frase: "Kimberly, que os\nseus sonhos hoje\nsejam tão doces quanto você é.", sub: "com doçura e amor" },
+  { frase: "Boa noite, princesa!\nAmanhã seu pai estará\naqui, do seu lado, sempre.", sub: "com presença constante" },
+];
 
-function getUsedKey(cat){ return 'boanoite_used_' + cat; }
+const mensagensPriscila = [
+  { frase: "Boa noite, meu amor!\nQue você descanse\nsabendo o quanto é amada.", sub: "com amor declarado" },
+  { frase: "Hoje, como todo dia,\nvocê fez diferença\nna minha vida. Descanse.", sub: "com gratidão e amor" },
+  { frase: "Priscila, durma em paz,\nvocê merece descansar\napós um dia tão dedicado.", sub: "com carinho sincero" },
+  { frase: "Boa noite! Que meus\nbraços estejam com você\nem pensamento essa noite.", sub: "com saudade de perto" },
+  { frase: "Meu amor, que seus\nsonhos sejam tão bons\nquanto você faz meus dias.", sub: "com gratidão profunda" },
+  { frase: "Boa noite, Priscila!\nAntes de dormir, saiba\nque você é o meu maior amor.", sub: "com amor sem medida" },
+  { frase: "Descanse, meu amor,\namanhã seguimos juntos\nnessa linda caminhada.", sub: "com parceria e fé" },
+  { frase: "Boa noite! Você é\na última coisa boa\nque penso antes de dormir.", sub: "com amor constante" },
+  { frase: "Priscila, durma tranquila,\nao seu lado até\nos dias difíceis valem a pena.", sub: "com gratidão pela parceria" },
+  { frase: "Boa noite, meu amor!\nQue essa noite renove\nsuas forças e seu sorriso.", sub: "com carinho profundo" },
+  { frase: "Você merece descansar\ndepois de tudo que\nfaz por nós todos os dias.", sub: "com reconhecimento e amor" },
+  { frase: "Boa noite, esposa linda!\nTe amo hoje, amanhã\ne por todos os dias que vierem.", sub: "com amor eterno" },
+  { frase: "Priscila, que seus\nsonhos sejam leves\ne seu descanso, merecido.", sub: "com leveza e carinho" },
+  { frase: "Boa noite! Obrigado\npor mais um dia\nao seu lado, meu amor.", sub: "com gratidão diária" },
+  { frase: "Descanse, meu amor,\nvocê é meu porto\nseguro e também minha paz.", sub: "com segurança e amor" },
+  { frase: "Boa noite, Priscila!\nQue essa noite seja\ntão doce quanto o seu carinho.", sub: "com doçura e amor" },
+  { frase: "Amanhã eu escolho\nvocê de novo, como\nescolho todos os dias. Boa noite.", sub: "com escolha renovada" },
+  { frase: "Boa noite, meu amor!\nDurma sabendo que\nsou grato por ter você na minha vida.", sub: "com gratidão sincera" },
+  { frase: "Priscila, você fez\nesse dia mais bonito\nsó por existir. Descanse bem.", sub: "com admiração verdadeira" },
+  { frase: "Boa noite, esposa linda!\nQue nossos sonhos\nde hoje continuem amanhã, juntos.", sub: "com futuro e amor" },
+  { frase: "Meu amor, que você\ndurma em paz, sabendo\nque é amada além das palavras.", sub: "com amor imenso" },
+  { frase: "Boa noite, Priscila!\nCada dia ao seu lado\né um dia que vale a pena viver.", sub: "com gratidão diária" },
+  { frase: "Descanse, meu amor,\namanhã seguimos escrevendo\nessa história linda juntos.", sub: "com amor de longa data" },
+  { frase: "Boa noite! Você é\na paz que encontro\ndepois de qualquer dia difícil.", sub: "com paz e gratidão" },
+  { frase: "Priscila, minha esposa,\nboa noite. Te amo\nmais do que qualquer palavra diz.", sub: "com amor incondicional" },
+];
 
-function pickMessage(cat){
-  const all = MESSAGES[cat];
-  const key = getUsedKey(cat);
-  let used = JSON.parse(localStorage.getItem(key) || '[]');
-  let available = all.map((_,i)=>i).filter(i => !used.includes(i));
-  if(available.length === 0){
-    used = [];
-    available = all.map((_,i)=>i);
-  }
-  const idx = available[Math.floor(Math.random()*available.length)];
-  used.push(idx);
-  localStorage.setItem(key, JSON.stringify(used));
-  return all[idx];
+const TEMAS = [
+  { ceu1: '#0a0a2e', ceu2: '#1a1a4e', lua: '#F4E4BC', horizonte: '#2d1b69', frase_cor: '#FFF8DC', sub_cor: '#F4C572' },
+  { ceu1: '#1a0a3e', ceu2: '#2d1a5e', lua: '#E8D5FF', horizonte: '#4a1a6e', frase_cor: '#FFFFFF', sub_cor: '#C9A9FF' },
+  { ceu1: '#04102e', ceu2: '#0a2647', lua: '#BFE9FF', horizonte: '#144272', frase_cor: '#EAF6FF', sub_cor: '#7FC7FF' },
+  { ceu1: '#2a0a2e', ceu2: '#4a1a3e', lua: '#FFD1DC', horizonte: '#6e1a4e', frase_cor: '#FFF0F5', sub_cor: '#E8879C' },
+  { ceu1: '#0a2a1a', ceu2: '#123524', lua: '#D4F5D4', horizonte: '#1a5a3a', frase_cor: '#F0FFF0', sub_cor: '#8FE38F' },
+];
+
+let indexAtual = -1;
+
+function getMensagens() {
+  if (assinatura === 'claudio') return mensagensGerais;
+  if (assinatura === 'kimberly') return mensagensKimberly;
+  if (assinatura === 'priscila') return mensagensPriscila;
+  return mensagensBiblicas;
 }
 
-const grid = document.getElementById('grid');
-const panel = document.getElementById('panel');
-const msgText = document.getElementById('msgText');
-const backBtn = document.getElementById('backBtn');
-const newMsgBtn = document.getElementById('newMsgBtn');
-const copyBtn = document.getElementById('copyBtn');
-const shareBtn = document.getElementById('shareBtn');
-const toast = document.getElementById('toast');
+function desenharCena(msg, tema) {
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+  const W = 420, H = 420;
 
-let currentCat = null;
+  // Gradiente céu noturno
+  const gradCeu = ctx.createLinearGradient(0, 0, 0, H * 0.75);
+  gradCeu.addColorStop(0, tema.ceu1);
+  gradCeu.addColorStop(0.5, tema.ceu2);
+  gradCeu.addColorStop(1, tema.horizonte);
+  ctx.fillStyle = gradCeu;
+  ctx.fillRect(0, 0, W, H);
 
-function showMessage(cat){
-  currentCat = cat;
-  msgText.textContent = pickMessage(cat);
-  grid.classList.add('hidden');
-  panel.classList.add('active');
-}
-
-grid.querySelectorAll('.cat-card').forEach(card=>{
-  card.addEventListener('click', ()=> showMessage(card.dataset.cat));
-  card.addEventListener('keydown', e=>{
-    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); showMessage(card.dataset.cat); }
+  // Estrelas espalhadas
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  const estrelas = [[40,30],[80,15],[150,25],[220,10],[290,20],[350,35],[390,15],[60,60],[180,50],[310,55],[336,40],[20,90],[110,95],[250,85],[380,80],[140,110],[200,105]];
+  estrelas.forEach(([x,y]) => {
+    ctx.beginPath();
+    ctx.arc(x, y, Math.random()*1.2+0.8, 0, Math.PI*2);
+    ctx.fill();
   });
-});
 
-backBtn.addEventListener('click', ()=>{
-  panel.classList.remove('active');
-  grid.classList.remove('hidden');
-});
+  // Lua com brilho
+  const luaX = W / 2, luaY = H * 0.42;
+  const gradGlow = ctx.createRadialGradient(luaX, luaY, 10, luaX, luaY, 90);
+  gradGlow.addColorStop(0, 'rgba(255,255,255,0.35)');
+  gradGlow.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.fillStyle = gradGlow;
+  ctx.beginPath();
+  ctx.arc(luaX, luaY, 90, 0, Math.PI*2);
+  ctx.fill();
 
-newMsgBtn.addEventListener('click', ()=>{
-  if(currentCat) msgText.textContent = pickMessage(currentCat);
-});
+  const gradLua = ctx.createRadialGradient(luaX-12, luaY-12, 5, luaX, luaY, 46);
+  gradLua.addColorStop(0, '#FFFFFF');
+  gradLua.addColorStop(0.5, tema.lua);
+  gradLua.addColorStop(1, tema.horizonte);
+  ctx.fillStyle = gradLua;
+  ctx.beginPath();
+  ctx.arc(luaX, luaY, 46, 0, Math.PI*2);
+  ctx.fill();
 
-function showToast(text){
-  toast.textContent = text;
-  toast.classList.add('show');
-  setTimeout(()=> toast.classList.remove('show'), 1600);
+  // Crateras da lua
+  ctx.fillStyle = 'rgba(0,0,0,0.08)';
+  [[luaX-16,luaY-10,8],[luaX+10,luaY+14,6],[luaX+18,luaY-16,4],[luaX-6,luaY+18,5]].forEach(([x,y,r]) => {
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  // Colinas
+  ctx.fillStyle = '#050512';
+  ctx.beginPath();
+  ctx.moveTo(0, H);
+  ctx.lineTo(0, H*0.72);
+  ctx.quadraticCurveTo(W*0.25, H*0.58, W*0.5, H*0.65);
+  ctx.quadraticCurveTo(W*0.75, H*0.72, W, H*0.62);
+  ctx.lineTo(W, H);
+  ctx.fill();
+
+  // Árvores esquerda
+  [[30,H*0.72],[60,H*0.68],[90,H*0.70]].forEach(([x,y]) => {
+    ctx.fillStyle = '#050512';
+    ctx.beginPath();
+    ctx.moveTo(x, y-40);
+    ctx.lineTo(x-12, y);
+    ctx.lineTo(x+12, y);
+    ctx.fill();
+  });
+
+  // Árvores direita
+  [[W-30,H*0.65],[W-60,H*0.62],[W-90,H*0.67]].forEach(([x,y]) => {
+    ctx.fillStyle = '#050512';
+    ctx.beginPath();
+    ctx.moveTo(x, y-40);
+    ctx.lineTo(x-12, y);
+    ctx.lineTo(x+12, y);
+    ctx.fill();
+  });
+
+  // Texto "* que a noite seja *"
+  ctx.fillStyle = tema.sub_cor;
+  ctx.font = 'italic 14px Georgia';
+  ctx.textAlign = 'center';
+  ctx.fillText('* que a noite seja *', W/2, 80);
+
+  // BOA NOITE
+  ctx.fillStyle = 'rgba(0,0,0,0.3)';
+  ctx.font = 'bold 52px Georgia';
+  ctx.fillText('Boa Noite', W/2+2, 142);
+  ctx.fillStyle = tema.frase_cor;
+  ctx.font = 'bold 52px Georgia';
+  ctx.fillText('Boa Noite', W/2, 140);
+
+  // Sub
+  ctx.fillStyle = tema.sub_cor;
+  ctx.font = 'italic 20px Georgia';
+  ctx.fillText(msg.sub, W/2, 172);
+
+  // Linha
+  ctx.strokeStyle = tema.sub_cor;
+  ctx.lineWidth = 1;
+  ctx.globalAlpha = 0.5;
+  ctx.beginPath();
+  ctx.moveTo(W/2 - 140, 182);
+  ctx.lineTo(W/2 + 140, 182);
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  // Frase
+  ctx.fillStyle = tema.frase_cor;
+  ctx.font = '15px Georgia';
+  const linhas = msg.frase.split('\n');
+  linhas.forEach((linha, i) => {
+    ctx.fillText(linha, W/2, 210 + i * 24);
+  });
 }
 
-copyBtn.addEventListener('click', async ()=>{
-  try{
-    await navigator.clipboard.writeText(msgText.textContent);
-    showToast('Copiado!');
-  }catch(e){
-    showToast('Não foi possível copiar');
+function mostrarMensagem(index) {
+  const lista = getMensagens();
+  const msg = lista[index % lista.length];
+  const tema = TEMAS[index % TEMAS.length];
+  desenharCena(msg, tema);
+  indexAtual = index;
+}
+
+function sortearSemRepetir() {
+  const lista = getMensagens();
+  const chave = 'boanoite_usados_' + assinatura;
+  let usados = [];
+  try { usados = JSON.parse(localStorage.getItem(chave)) || []; } catch(e) { usados = []; }
+  if (!Array.isArray(usados) || usados.length >= lista.length) usados = [];
+  const disponiveis = lista.map((_, i) => i).filter(i => !usados.includes(i));
+  const escolhido = disponiveis[Math.floor(Math.random() * disponiveis.length)];
+  usados.push(escolhido);
+  try { localStorage.setItem(chave, JSON.stringify(usados)); } catch(e) {}
+  mostrarMensagem(escolhido);
+}
+
+function proximaMensagem() {
+  sortearSemRepetir();
+}
+
+let assinatura = 'irmao';
+
+function setAssinatura(tipo) {
+  assinatura = tipo;
+  ['claudio', 'irmao', 'kimberly', 'priscila'].forEach(t => {
+    const btn = document.getElementById('btn-' + t);
+    const ativo = t === tipo;
+    btn.style.background = ativo ? '#6f6ff7' : '#24245a';
+    btn.style.color = ativo ? '#fff' : '#a9a3ff';
+    btn.style.fontWeight = ativo ? 'bold' : 'normal';
+    btn.style.borderColor = ativo ? '#6f6ff7' : '#3a3a8a';
+  });
+  sortearSemRepetir();
+}
+
+function compartilhar() {
+  const lista = getMensagens();
+  const msg = lista[indexAtual % lista.length];
+  const nome = assinatura === 'irmao' ? 'Irmão Claudio 🙏' : (assinatura === 'kimberly' ? 'Papai ❤️' : (assinatura === 'priscila' ? 'Seu amor ❤️' : 'Claudio 😊'));
+  const texto = `🌙 *Boa Noite!* 🌙\n\n_${msg.sub}_\n\n${msg.frase.replace(/\n/g, ' ')}\n\n✨ _Enviado com carinho por ${nome}_`;
+  const canvas = document.getElementById('canvas');
+
+  // Tenta compartilhar com imagem (Web Share API nível 2)
+  if (navigator.canShare) {
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'boanoite.png', { type: 'image/png' });
+      if (navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], text: texto });
+          return;
+        } catch(e) {
+          // usuário cancelou ou erro, cai no fallback
+        }
+      }
+      // fallback: só texto
+      const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+      window.open(url, '_blank');
+    }, 'image/png');
+  } else {
+    // fallback para navegadores sem suporte
+    const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
   }
-});
+}
 
-shareBtn.addEventListener('click', ()=>{
-  const text = encodeURIComponent(msgText.textContent);
-  window.open('https://wa.me/?text='+text, '_blank');
-});
+// Atualizar data
+const agora = new Date();
+const dias = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+document.getElementById('data-label').textContent = 
+  `${dias[agora.getDay()]}, ${agora.getDate()} de ${meses[agora.getMonth()]} de ${agora.getFullYear()}`;
 
+// Mostrar mensagem sorteada (sem repetir)
+sortearSemRepetir();
+
+// Registrar service worker
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
     navigator.serviceWorker.register('sw.js').catch(()=>{});
